@@ -15,18 +15,19 @@ export default async function POST(request: NextRequest) {
         success: false,
         message: "All Fields are required while registering User",
       });
-    //if  user with verified Email exists
-    const existingUserByVerifiedEmail = await User.findOne({
+    //if  user with verified Username already  exists
+    const existingUserByVerifiedUsername = await User.findOne({
       username,
       isVerified: true,
     });
-    if (existingUserByVerifiedEmail)
+    if (existingUserByVerifiedUsername)
       return NextResponse.json({
         success: false,
-        message: "Verified user already exists",
+        message: "Username is already taken",
       });
-    // if user already exists
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      //generate OTP for verification mail
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      // if user  with email already exists
     const existingUserByEmail = await User.findById({ email });
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
@@ -52,7 +53,7 @@ export default async function POST(request: NextRequest) {
         email,
         password: hashedPassword,
         verifyCode: otp,
-        verifyCodeExpiry: Date.now() + 3600000,
+        verifyCodeExpiry: new Date(Date.now() + 3600000),
         messages: [],
       });
     }
