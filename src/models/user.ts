@@ -59,7 +59,11 @@ const userSchema: Schema<User> = new Schema({
     type: Boolean,
     default: false,
   },
-  isAcceptingMessage: true,
+  isAcceptingMessage:
+  {
+    type:Boolean,
+    default:true
+  },
   messages: [messageSchema],
 });
 const User = mongoose.models.User || mongoose.model("User", userSchema);
