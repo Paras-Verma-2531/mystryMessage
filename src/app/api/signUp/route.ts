@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import User from "@/models/user";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 connectDb();
-export default async function POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { email, username, password } = reqBody;
@@ -25,10 +25,10 @@ export default async function POST(request: NextRequest) {
         success: false,
         message: "Username is already taken",
       });
-      //generate OTP for verification mail
-      const otp = Math.floor(100000 + Math.random() * 900000).toString();
-      // if user  with email already exists
-    const existingUserByEmail = await User.findById({ email });
+    //generate OTP for verification mail
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // if user  with email already exists
+    const existingUserByEmail = await User.findOne({email});
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
         return NextResponse.json({
