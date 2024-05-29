@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     if (!user.isAcceptingMessages) {
       return NextResponse.json({
         success: false,
-        message: "user cannot accept messages",
+        message: "User is currently not accepting any messages",
       });
     }
     //user is accepting messages
@@ -29,10 +29,10 @@ export async function POST(request: NextRequest) {
       message: "Message sent successfully",
     });
   } catch (error) {
-    console.log("failed to send messages", error);
+    console.log("failed to send message", error);
     return NextResponse.json({
       success: false,
-      message: "failed to send messages",
+      message: "failed to send message",
     });
   }
 }
