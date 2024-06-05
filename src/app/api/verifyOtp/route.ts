@@ -1,35 +1,14 @@
 import User from "@/models/user";
 import connectDb from "@/lib/dbConnect";
-import { z } from "zod";
-import { verifySchema } from "@/schemas/verifySchema";
 import { NextRequest, NextResponse } from "next/server";
 
-const otpQuerySchema = z.object({
-  otp: verifySchema,
-});
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     connectDb();
-    const searchParams = request.nextUrl.searchParams;
-    const queryParam = {
-      otp: searchParams.get("otp"),
-    };
-    if (!queryParam.otp) {
-      return NextResponse.json({
-        success: false,
-        message: "OTP expected",
-      });
-    }
-    const result = otpQuerySchema.safeParse(queryParam);
-    if (!result.success) {
-      console.log(result.error.format().otp?._errors);
-      return NextResponse.json({
-        success: false,
-        message: "Invalid query parameters",
-      });
-    }
-    const { otp } = result.data;
+    const { username, otp } = await request.json();
+    const decodedUsername = decodeURIComponent(username);
     const isOtpValid = await User.findOne({
+      username: decodedUsername,
       verifyCode: otp,
       verifyCodeExpiry: { $gt: Date.now() },
     });
