@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/lib/dbConnect";
 //NOTE:-> provides the session information :: everything in the session here we have info about user
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/options";
+import { authOptions } from "../auth/[...nextauth]/options";
 import mongoose from "mongoose";
 export async function GET(request: NextRequest) {
   try {
