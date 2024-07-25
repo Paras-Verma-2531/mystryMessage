@@ -6,6 +6,7 @@ export interface Message extends Document {
   createdAt: Date;
 }
 
+// MessageSchema :: used by UserSchema
 const messageSchema: Schema<Message> = new Schema({
   content: {
     type: String,
