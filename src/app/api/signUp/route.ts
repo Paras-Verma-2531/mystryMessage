@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
         messages: [],
       });
     }
-    //send verification email
+    //:IMP send verification email
     const emailResponse = await sendVerificationEmail(email, username, otp);
     //if error encountered
     if (!emailResponse.success) {
