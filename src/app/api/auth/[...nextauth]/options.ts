@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    //user :: {is the user send the by us in the provide }
+    //user :: {is the user send by us in the provider }
     async jwt({ token, user }) {
       if (user) {
         token._id = user._id?.toString();
