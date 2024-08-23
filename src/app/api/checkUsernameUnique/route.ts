@@ -14,6 +14,7 @@ export async function GET(request: NextRequest) {
     //fetch the username from params
     const searchParams = request.nextUrl.searchParams;
     const queryParam = {
+      // IMP: http://localhost:3000/api/cuu?username=paras
       username: searchParams.get("username"),
     };
     //if no username fetched:: send error
