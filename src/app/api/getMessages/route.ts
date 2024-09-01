@@ -5,6 +5,9 @@ import connectDb from "@/lib/dbConnect";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
 import mongoose from "mongoose";
+/*
+Fetch the messages that the current user recieves
+*/
 export async function GET(request: NextRequest) {
   try {
     connectDb();

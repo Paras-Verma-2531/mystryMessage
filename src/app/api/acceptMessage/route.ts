@@ -4,6 +4,7 @@ import connectDb from "@/lib/dbConnect";
 //NOTE:-> provides the session information :: everything in the session here we have info about user
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
+import { ApiResponse } from "@/types/ApiResponse";
 
 // IMP :-> allows the currently logedIn user to toggle the state of messageAcceptance
 export async function POST(request: NextRequest) {
